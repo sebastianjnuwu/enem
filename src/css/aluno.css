@@ -142,8 +142,9 @@ main {
 .profile-info li {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  color: #1e3a8a;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: var(--cor-azul-escuro); 
 }
 
 .profile-info li::before {
@@ -151,15 +152,9 @@ main {
 }
 
 .profile-info li i {
-  color: #90caf9;
+  color: var(--azul-escuro);
   min-width: 20px;
   font-size: 1.2rem;
-}
-
-.profile-info li.expires {
-  color: #d9534f;
-  font-weight: 700;
-  font-size: 0.95rem;
 }
 
 .btn-wrapper {
