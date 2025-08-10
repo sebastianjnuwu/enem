@@ -480,9 +480,26 @@ main {
 }
 
 .lista-redacoes {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cor-azul-suave) transparent;
+}
+
+.lista-redacoes::-webkit-scrollbar {
+  width: 8px;
+}
+
+.lista-redacoes::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.lista-redacoes::-webkit-scrollbar-thumb {
+  background-color: var(--cor-azul-suave);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
 }
 
 .lista-redacoes li {
