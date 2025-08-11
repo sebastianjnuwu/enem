@@ -599,6 +599,7 @@ td[data-label="Nome"] > .ellipsis {
   align-items: center;
 }
 
+#admin-pacotes .admin-pacotes-actions, 
 .aulas-admin .aula-actions {
   display: flex;
   justify-content: center;
@@ -606,6 +607,7 @@ td[data-label="Nome"] > .ellipsis {
   margin-top: 0.5rem;
 }
 
+#admin-pacotes .admin-pacotes-actions button,
 .aulas-admin .aula-actions button {
   background: var(--cor-azul-suave, #e9f1ff);
   border: none;
@@ -617,6 +619,7 @@ td[data-label="Nome"] > .ellipsis {
   transition: 0.2s ease;
 }
 
+#admin-pacotes .admin-pacotes-actions button:hover,
 .aulas-admin .aula-actions button:hover {
   background: var(--cor-azul, #007bff);
   color: #fff;
@@ -634,4 +637,29 @@ td[data-label="Nome"] > .ellipsis {
   .aulas-admin .aula-actions {
     flex-wrap: wrap;
   }
+}
+
+#admin-pacotes {
+  max-height: 80vh;
+  overflow-y: auto;
+  text-align: center;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cor-azul-escuro) #f1f1f1;
+}
+
+#admin-pacotes article {
+  margin: 0.5rem;
+  transform: none;
+  animation: none;
+}
+
+#admin-pacotes::-webkit-scrollbar {
+  width: 8px;
+}
+#admin-pacotes::-webkit-scrollbar-thumb {
+  background-color: var(--cor-azul-escuro);
+  border-radius: 4px;
+}
+#admin-pacotes::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
