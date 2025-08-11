@@ -7,26 +7,19 @@
   --cor-cinza-claro: #f5f7fa;
 }
 
-html,
-body {
+html, body {
   height: 100%;
   margin: 0;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
   background: var(--layout);
 }
 
 main {
-  flex: 1 0 auto;
+  min-height: 100vh;
 }
 
 nav#mainNav {
   margin: 1rem;
-  padding: 0.4rem 1rem;
+  padding: 1rem;
   border-radius: 3rem;
   background: var(--cor-branco);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -45,9 +38,10 @@ nav#mainNav.scrolled {
 }
 
 nav#mainNav a.button {
+  margin: 0.1rem;
   background-color: var(--cor-azul-suave);
   border: none;
-  padding: 0.6rem 1.5rem;
+  padding: 1rem;
   border-radius: 50px;
   font-weight: 700;
   color: var(--cor-azul-escuro);
