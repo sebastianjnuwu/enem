@@ -1,11 +1,3 @@
-:root {
-  --layout-bg: #e3f2fd;
-  --azul-suave: #90caf9;
-  --azul-escuro: #1e3a8a;
-  --branco: #ffffff;
-  --cinza-texto: #444444;
-  --cinza-claro: #f5f7fa;
-}
 
 *,
 *::before,
@@ -16,59 +8,12 @@
 body {
   margin: 0;
   font-family: 'Fredoka One', cursive, sans-serif;
-  background-color: var(--layout-bg);
-  color: var(--cinza-texto);
+  background-color: var(--layout);
+  color: var(--cor-cinza-texto);
   min-height: 100vh;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-nav#mainNav {
-  margin: 1rem;
-  padding: 0.4rem 1rem;
-  border-radius: 3rem;
-  background: var(--branco);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-  user-select: none;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
-}
-
-nav#mainNav.scrolled {
-  background-color: var(--azul-suave);
-  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.4);
-  padding: 0.3rem 1.2rem;
-}
-
-nav#mainNav a.button {
-  background-color: var(--azul-suave);
-  border: none;
-  padding: 0.6rem 1.5rem;
-  border-radius: 50px;
-  font-weight: 700;
-  color: var(--azul-escuro);
-  cursor: pointer;
-  box-shadow: 0 5px 15px rgba(30, 58, 138, 0.2);
-  transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
-  font-family: 'Fredoka One', cursive;
-  flex-shrink: 0;
-  white-space: nowrap;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-nav#mainNav a.button:hover,
-nav#mainNav a.button:focus {
-  background-color: var(--azul-escuro);
-  color: var(--branco);
-  outline: none;
-  transform: translateY(-3px);
 }
 
 main {
@@ -83,17 +28,17 @@ main {
   margin-bottom: 2.5rem;
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--azul-escuro);
+  color: var(--cor-azul-escuro);
 }
 
 .profile-section {
   margin: 0 auto 2rem auto;
-  background: #fff;
+  background: var(--cor-branco);
   border-radius: 30px;
   padding: 2rem;
   box-shadow: 0 6px 16px rgba(30, 58, 138, 0.15);
   font-family: 'Fredoka One', cursive;
-  color: #1e3a8a;
+  color: var(--cor-azul-escuro);
   text-align: center;
 }
 
@@ -105,7 +50,7 @@ main {
   justify-content: center;
   align-items: center;
   gap: 0.6rem;
-  color: #1e3a8a;
+  color: var(--cor-azul-escuro);
 }
 
 .profile-img-wrapper {
@@ -152,7 +97,7 @@ main {
 }
 
 .profile-info li i {
-  color: var(--azul-escuro);
+  color: var(--cor-azul-escuro);
   min-width: 20px;
   font-size: 1.2rem;
 }
@@ -162,7 +107,7 @@ main {
 }
 
 .btn-renovar {
-  background-color: #1e3a8a;
+  background-color: var(--cor-azul-escuro);
   border: none;
   border-radius: 50px;
   color: #fff;
@@ -182,7 +127,7 @@ main {
 .btn-renovar:hover,
 .btn-renovar:focus {
   background-color: #90caf9;
-  color: #1e3a8a;
+  color: var(--cor-azul-escuro);
   outline: none;
   transform: translateY(-3px);
 }
@@ -249,11 +194,11 @@ main {
 }
 
 .card {
-  background: var(--branco);
+  background: var(--cor-branco);
   border-radius: 30px;
   padding: 1.8rem 2rem;
   box-shadow: 0 9px 18px rgba(58, 105, 216, 0.15);
-  color: var(--azul-escuro);
+  color: var(--cor-azul-escuro);
   font-weight: 600;
   font-family: 'Fredoka One', cursive;
   cursor: default;
@@ -281,7 +226,7 @@ main {
 }
 
 .progress-bar {
-  background-color: var(--azul-suave);
+  background-color: var(--cor-azul-suave);
   border-radius: 15px;
   overflow: hidden;
   height: 18px;
@@ -291,7 +236,7 @@ main {
 
 .progress-bar>div {
   height: 100%;
-  background-color: var(--azul-escuro);
+  background-color: var(--cor-azul-escuro);
   width: 65%;
   /* exemplo de progresso */
   transition: width 0.6s ease;
@@ -856,11 +801,11 @@ main {
 
 /* Contato */
 .contact-section {
-  background: var(--branco);
+  background: var(--cor-branco);
   border-radius: 30px;
   padding: 1.8rem 2rem;
   box-shadow: 0 9px 18px rgba(58, 105, 216, 0.15);
-  color: var(--azul-escuro);
+  color: var(--cor-azul-escuro);
   font-family: 'Fredoka One', cursive;
   margin-bottom: 3rem;
 }
@@ -879,12 +824,12 @@ main {
 }
 
 .contact-section a.button-contact {
-  background-color: var(--azul-suave);
+  background-color: var(--cor-azul-suave);
   border: none;
   padding: 0.7rem 1.6rem;
   border-radius: 50px;
   font-weight: 700;
-  color: var(--azul-escuro);
+  color: var(--cor-azul-escuro);
   cursor: pointer;
   box-shadow: 0 5px 15px rgba(30, 58, 138, 0.2);
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -897,8 +842,8 @@ main {
 
 .contact-section a.button-contact:hover,
 .contact-section a.button-contact:focus {
-  background-color: var(--azul-escuro);
-  color: var(--branco);
+  background-color: var(--cor-azul-escuro);
+  color: var(--cor-branco);
   outline: none;
   transform: translateY(-3px);
 }

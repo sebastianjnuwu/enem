@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Painel de administração - Redação com a MAY</title>
+<link rel="shortcut icon" href="https://cdn.discordapp.com/attachments/1346893120528449577/1403896612442607677/38_Sem_Titulo_20250809212310.png" type="image/x-icon" />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+ <link rel="stylesheet" href="src/css/styles.css" type="text/css" media="all" />
+ <link rel="stylesheet" href="src/css/aluno.css" type="text/css" media="all" />
+ <link rel="stylesheet" href="src/css/admin.css" type="text/css" media="all" />
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+<header class="header">
+  <i class="fas fa-pencil-alt icon" aria-hidden="true"></i>
+  <h1>Área do administrador</h1>
+</header>
+
+<nav id="mainNav">
+   <a href="#usuarios" class="button"><i class="fas fa-users"></i> Usuários</a>
+   <a href="#redacoes" class="button"><i class="fas fa-file-alt"></i> Redações</a>
+  <a href="#materiais" class="button">
+  <i class="fas fa-book"></i> Temas</a>
+   <a href="#materiais" class="button"><i class="fas fa-book"></i> Materiais</a>
+   <a href="#aulas" class="button"><i class="fas fa-chalkboard-teacher"></i> Aulas</a>
+</nav>
+
+<main class="container">
+  
+  <section id="usuarios" class="container my-5">
+  <h3 class="text-center card-title">
+    <i class="fas fa-users me-2"></i> Gerenciar Usuários
+  </h3>
+
+  <!-- Campo de pesquisa -->
+  <input
+    type="search"
+    id="searchUsers"
+    placeholder="Pesquisar usuário..."
+    aria-label="Pesquisar usuários"
+    class="form-control mb-4"
+  />
+
+  <div class="table-responsive">
+   <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Plano</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="userTableBody">
+        <tr>
+          <td data-label="Nome">Maiza Silva xxxxxxxxxxxxxxddddddxxxxxxxxxxxxxxxxxxxxxx</td>
+          <td data-label="Plano">Pacote Completo</td>
+          <td data-label="Ações" class="actions">
+            <button class="btn btn-view"><i class="fas fa-eye"></i> Ver</button>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Nome">Maiza Silva xxxxxxxxxxxxxxddddddxxxxxxxxxxxxxxxxxxxxxx</td>
+          <td data-label="Plano">Pacote Completo</td>
+          <td data-label="Ações" class="actions">
+            <button class="btn btn-view"><i class="fas fa-eye"></i> Ver</button>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Nome">Maiza Silva xxxxxxxxxxxxxxddddddxxxxxxxxxxxxxxxxxxxxxx</td>
+          <td data-label="Plano">Pacote Completo</td>
+          <td data-label="Ações" class="actions">
+            <button class="btn btn-view"><i class="fas fa-eye"></i> Ver</button>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Nome">Maiza Silva xxxxxxxxxxxxxxddddddxxxxxxxxxxxxxxxxxxxxxx</td>
+          <td data-label="Plano">Pacote Completo</td>
+          <td data-label="Ações" class="actions">
+            <button class="btn btn-view"><i class="fas fa-eye"></i> Ver</button>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Nome">Maiza Silva xxxxxxxxxxxxxxddddddxxxxxxxxxxxxxxxxxxxxxx</td>
+          <td data-label="Plano">Pacote Completo</td>
+          <td data-label="Ações" class="actions">
+            <button class="btn btn-view"><i class="fas fa-eye"></i> Ver</button>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Nome">Maiza Silva xxxxxxxxxxxxxxddddddxxxxxxxxxxxxxxxxxxxxxx</td>
+          <td data-label="Plano">Pacote Completo</td>
+          <td data-label="Ações" class="actions">
+            <button class="btn btn-view"><i class="fas fa-eye"></i> Ver</button>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Nome">Maiza Silva xxxxxxxxxxxxxxddddddxxxxxxxxxxxxxxxxxxxxxx</td>
+          <td data-label="Plano">Pacote Completo</td>
+          <td data-label="Ações" class="actions">
+            <button class="btn btn-view"><i class="fas fa-eye"></i> Ver</button>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Nome">Maiza Silva xxxxxxxxxxxxxxddddddxxxxxxxxxxxxxxxxxxxxxx</td>
+          <td data-label="Plano">Pacote Completo</td>
+          <td data-label="Ações" class="actions">
+            <button class="btn btn-view"><i class="fas fa-eye"></i> Ver</button>
+          </td>
+        </tr>
+        <tr>
+          <td data-label="Nome">Maiza Silva xxxxxxxxxxxxxxddddddxxxxxxxxxxxxxxxxxxxxxx</td>
+          <td data-label="Plano">Pacote Completo</td>
+          <td data-label="Ações" class="actions">
+            <button class="btn btn-view"><i class="fas fa-eye"></i> Ver</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+</section>
+
+  <section id="redacoes" class="container my-5">
+  <h3 class="text-center card-title mb-4">
+    <i class="fas fa-file-alt me-2"></i> Gerenciar Redações
+  </h3>
+
+  <input
+    type="search"
+    id="searchRedacoes"
+    placeholder="Pesquisar redação..."
+    aria-label="Pesquisar redações"
+    class="form-control mb-4"
+  />
+  
+   <div id="filtro-pendentes" class="form-check mb-4">
+    <input
+      type="checkbox"
+      id="filterPendentes"
+      class="form-check-input"
+    />
+    <label for="filterPendentes" class="form-check-label fw-bold" style="user-select:none; cursor:pointer;">
+      Mostrar somente pendentes
+    </label>
+  </div>
+  
+
+<ul class="redacoes-list">
+  <li class="redacao-item">
+    <div class="redacao-info">
+      <span class="titulo" title="Análise crítica da política educacional brasileira">
+        <i class="fas fa-file-alt"></i>
+        Análise crítica da política educacional brasileira
+      </span>
+      <span class="aluno">
+        <i class="fas fa-user"></i>
+        Maria Silva
+      </span>
+      <span class="data">
+        <i class="fas fa-calendar-alt"></i>
+        08/08/2025
+      </span>
+      <span class="status finalizada">
+        <i class="fas fa-check-circle"></i>
+        Finalizada
+      </span>
+      <div class="actions">
+        <button class="btn btn-view"><i class="fas fa-eye"></i> Ver</button>
+      </div>
+    </div>
+  </li>
+
+  <li class="redacao-item">
+    <div class="redacao-info">
+      <span class="titulo" title="Redação sobre impactos da inteligência artificial na educação">
+        <i class="fas fa-file-alt"></i>
+        Redação sobre impactos da inteligência artificial na educação
+      </span>
+      <span class="aluno">
+        <i class="fas fa-user"></i>
+        João Pereira
+      </span>
+      <span class="data">
+        <i class="fas fa-calendar-alt"></i>
+        05/08/2025
+      </span>
+      <span class="status pendente">
+        <i class="fas fa-clock"></i>
+        Pendente
+      </span>
+      <div class="actions">
+        <button class="btn btn-view"><i class="fas fa-eye"></i> Ver</button>
+      </div>
+    </div>
+  </li>
+
+  <li class="redacao-item">
+    <div class="redacao-info">
+      <span class="titulo" title="Redação sobre preservação ambiental e sustentabilidade">
+        <i class="fas fa-file-alt"></i>
+        Redação sobre preservação ambiental e sustentabilidade
+      </span>
+      <span class="aluno">
+        <i class="fas fa-user"></i>
+        Ana Souza
+      </span>
+      <span class="data">
+        <i class="fas fa-calendar-alt"></i>
+        03/08/2025
+      </span>
+      <span class="status finalizada">
+        <i class="fas fa-check-circle"></i>
+        Finalizada
+      </span>
+      <div class="actions">
+        <button class="btn btn-view"><i class="fas fa-eye"></i> Ver</button>
+      </div>
+    </div>
+  </li>
+
+  <li class="redacao-item">
+    <div class="redacao-info">
+      <span class="titulo" title="Redação sobre a importância da saúde mental">
+        <i class="fas fa-file-alt"></i>
+        Redação sobre a importância da saúde mental
+      </span>
+      <span class="aluno">
+        <i class="fas fa-user"></i>
+        Lucas Martins
+      </span>
+      <span class="data">
+        <i class="fas fa-calendar-alt"></i>
+        01/08/2025
+      </span>
+      <span class="status pendente">
+        <i class="fas fa-clock"></i>
+        Pendente
+      </span>
+      <div class="actions">
+        <button class="btn btn-view"><i class="fas fa-eye"></i> Ver</button>
+      </div>
+    </div>
+  </li>
+</ul>
+</section>
+
+</main>
+
+  <footer class="footer">
+    <div class="text-center">
+    <p class="mb-2">&copy; 2025 Maiza Silva - Todos os direitos reservados.</p>
+  </div>
+    <div class="d-flex justify-content-center">
+     <small class="mx-3">
+       <i class="fas fa-file-contract"></i>
+<a target='_blank' data-bs-toggle='modal' data-bs-target='#terms_modal'>Termos
+de Uso</a> e <a target='_blank' data-bs-toggle='modal'
+data-bs-target='#policy_modal'>Política de Privacidade</a>
+     </small>
+    </div>
+    <div class="d-flex justify-content-center">
+    <small class="mx-1 link">
+     <i class="fas fa-code"></i> com <i class="fas fa-heart"></i> por <a
+     href="https://www.github.com/sebastianjnuwu" class="link">Sebastian Jn</a>
+    </small>
+   </div>
+  </footer>
+ 
+ <script src="src/js/main.js"></script>
+</body>
+</html>

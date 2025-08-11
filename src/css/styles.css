@@ -24,6 +24,53 @@ main {
   flex: 1 0 auto;
 }
 
+nav#mainNav {
+  margin: 1rem;
+  padding: 0.4rem 1rem;
+  border-radius: 3rem;
+  background: var(--cor-branco);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  user-select: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+}
+
+nav#mainNav.scrolled {
+  background-color: var(--cor-azul-suave);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.4);
+  padding: 0.3rem 1.2rem;
+}
+
+nav#mainNav a.button {
+  background-color: var(--cor-azul-suave);
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 700;
+  color: var(--cor-azul-escuro);
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(30, 58, 138, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+  font-family: 'Fredoka One', cursive;
+  flex-shrink: 0;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+nav#mainNav a.button:hover,
+nav#mainNav a.button:focus {
+  background-color: var(--cor-azul-escuro);
+  color: var(--cor-branco);
+  outline: none;
+  transform: translateY(-3px);
+}
+
 .section-title {
   text-align: center;
   font-size: 1.5rem;
