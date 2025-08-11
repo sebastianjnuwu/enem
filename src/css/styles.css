@@ -231,9 +231,9 @@ nav#mainNav a.button:focus {
   box-shadow: 0 12px 24px rgba(58, 105, 216, 0.4);
 }
 
-.card h3.card-title {
+section h3.card-title {
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: var(--cor-azul-escuro);
 }
 
