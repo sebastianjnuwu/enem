@@ -1,4 +1,5 @@
 import { auth } from "#services/firebase";
+import { logger } from "#services/logger";
 import prisma from "#db/prisma";
 import Joi from "joi";
 
@@ -28,16 +29,11 @@ const UserLogin = async (req, res) => {
       data: { uid, email, name, picture },
     });
   };
-     
-   user = await prisma.User.update({
-     where: { uid },
-     data: { name, picture },
-   });
   
-  console.log(user)
   return res.status(200).json(user);
     
   } catch (err) {
+    logger.error(`(ROUTE:USER:LOGIN): ${err.message}`);
     return res.status(401).json({ 
       status: false,
       message: err.message 

@@ -9,15 +9,18 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
  <link rel="stylesheet" href="src/css/styles.css" type="text/css" media="all" />
  <link rel="stylesheet" href="src/css/aluno.css" type="text/css" media="all" />
+ <link rel="stylesheet" href="src/css/admin.css" type="text/css" media="all" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js" integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/eruda/3.4.3/eruda.min.js" integrity="sha512-cDmB70h28kl47NuDUcO3/hqJ29T+Gxue9DA6hoENF9RPGN/AZuyI94ATk5MN9VXTiuTHw2v3iVT9sXLzMMF1sQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
   eruda.init();
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js" integrity="sha512-h9644v03pHqrIHThkvXhB2PJ8zf5E9IyVnrSfZg8Yj8k4RsO4zldcQc4Bi9iVLUCCsqNY0b4WXVV4UB+wbWENA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="src/js/firebase.js" type="module" charset="utf-8"></script>
-  <script src="src/js/aluno.js" type="module"></script>
   <script src="src/js/main.js" type="module" charset="utf-8"></script>
+  <script src="src/js/aluno.js" type="module"></script>
+  <script src="src/js/aluno/UserUpdate.js" type="module"></script>
 </head>
 <body>
 
@@ -39,9 +42,58 @@
 
 <main>
 
+<!-- Modal Bootstrap -->
+<div class="modal fade" id="USER_EDIT_MODAL" tabindex="-1" aria-labelledby="USER_EDIT_MODALLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" id="editProfileForm">
+      <div class="modal-header">
+        <h5 class="modal-title" id="USER_EDIT_MODALLabel">
+          <i class="fas fa-user-edit me-2"></i> Editar Perfil
+        </h5>
+      </div>
+      <div class="modal-body">
+
+        <div class="mb-3">
+          <label for="USER_INPUT_NAME" class="form-label">
+            <i class="fas fa-user me-1"></i> Nome
+          </label>
+          <input type="text" class="form-control" id="USER_INPUT_NAME" name="name"
+          placeholder="Shaun Carneiro" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="USER_INPUT_EMAIL" class="form-label">
+            <i class="fas fa-envelope me-1"></i> Email (não editável)
+          </label>
+          <input type="email" class="form-control" id="USER_INPUT_EMAIL" name="email"
+          placeholder="exemplo@mail.com" readonly>
+        </div>
+
+        <div class="mb-3">
+          <label for="USER_INPUT_PHONE" class="form-label">
+            <i class="fab fa-whatsapp me-1"></i> WhatsApp 
+          </label>
+          <input type="tel" class="form-control" id="USER_INPUT_PHONE"
+          placeholder="+XX (XX) X XXXX-XXXX" name="phone" maxlength="20">
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-end gap-2">
+  <button class="btn btn-secondary btn-sm d-flex align-items-center gap-1" data-bs-dismiss="modal">
+    <i class="fas fa-times"></i> Fechar
+  </button>
+  <button id="USER_EDIT_SAVE" class="btn btn-primary btn-sm d-flex align-items-center gap-1">
+    <i class="fas fa-save"></i> Salvar
+  </button>
+</div>
+    </div>
+  </div>
+</div>
+<!-- Modal Bootstrap -->
+
   <p class="welcome" tabindex="0">Olá, <strong id="user_name">"?"</strong>. Bem-vinda ao seu painel de estudos.</p>
 
-<section id="perfil" class="profile-section card" aria-label="Informações básicas do aluno">
+  <section id="perfil" class="profile-section card" aria-label="Informações básicas do aluno">
   <h3 class="card-title">
     <i class="fas fa-user-circle"></i> Meu Perfil
   </h3>
@@ -50,21 +102,22 @@
     <img id="user_picture" src="https://cdn.discordapp.com/attachments/1346893120528449577/1404609886989320212/sem-foto.png?ex=689bd065&is=689a7ee5&hm=6b0f0721ea3d381dbc10e7e7dacc0c8dc3dca2247fe09033bd1bef3ab191c99b&"/>
   </div>
 
-  <ul class="profile-info">
-    <li><i class="fas fa-user"></i> ------------------------ </li>
-    <li><i class="fas fa-envelope"></i> ------------------------ </li>
-    <li><i class="fas fa-phone"></i> ------------------------ </li>
-    <li><i class="fas fa-layer-group"></i> ------------------------ </li>
-  </ul>
+<ul class="profile-info">
+  <li><i class="fas fa-user"></i> ------------------------ </li>
+  <li><i class="fas fa-envelope"></i> ------------------------ </li>
+  <li><i class="fas fa-phone"></i> ------------------------ </li>
+  <li><i class="fas fa-layer-group"></i> ------------------------ </li>
+</ul>
 
-  <div class="btn-wrapper">
-    <button type="button" class="btn-renovar">
-      <i class="fas fa-arrows-rotate"></i> Renovar
-    </button>
-  </div>
+<div class="profile-actions">
+  <button type="button" class="button" data-bs-toggle="modal" data-bs-target="#USER_EDIT_MODAL">
+    <i class="fas fa-edit"></i>
+  </button>
+</div>
+
 </section>
-  
-  
+
+
   <section class="plan-expired card p-3 mb-4 mx-auto" aria-label="Aviso de plano inativo">
   <h3 class="mb-3 text-danger" style="font-weight: 700; font-family: 'Fredoka One', cursive;">
     <i class="fas fa-exclamation-triangle me-2"></i> Nenhum Plano Ativo
@@ -201,7 +254,7 @@
 
 </section>
 
-<!---
+
   <div class="cards" aria-live="polite">
 
     <section class="card" aria-label="Progresso geral do curso">
@@ -222,10 +275,8 @@
     </section>
 
   </div>
---->
 
-
-<section id="material" class="materials-section" aria-label="Materiais para download">
+  <section id="material" class="materials-section" aria-label="Materiais para download">
   <h3 class="section-title"><i class="fas fa-download"></i> Materiais Disponíveis</h3>
   <ul class="material-list">
     <li class="material-card">
@@ -287,5 +338,8 @@ data-bs-target='#policy_modal'>Política de Privacidade</a>
     </small>
    </div>
   </footer>
+  
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   
 </body>
 </html>

@@ -12,6 +12,25 @@ enum Role {
   ADMIN
 }
 
+model Plan {
+  id                  Int      @id @default(autoincrement())
+  name                String
+  content             String?
+  always              Boolean  @default(false)
+  price               Float
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  EXPIRED             String?
+  HAS_THEMES          Boolean  @default(false)
+  HAS_CLASSES         Boolean  @default(false)
+  TYPE_CLASS          String?
+  HAS_MATERIALS       Boolean  @default(false)
+  HAS_CORRECTION      Boolean  @default(false)
+  QUANTITY_CORRECTION Int      @default(0)
+
+  userPlans UserPlan[]
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   uid       String   @unique
@@ -22,4 +41,36 @@ model User {
   role      Role     @default(STUDENT)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  userPlans UserPlan[]
+}
+
+model UserPlan {
+  id       Int      @id @default(autoincrement())
+  userId   Int
+  planId   Int
+  startAt  DateTime @default(now())
+  expireAt String?
+  active   Boolean  @default(true)
+
+  user User @relation(fields: [userId], references: [id])
+  plan Plan @relation(fields: [planId], references: [id])
+
+  transactions Transaction[]
+
+  @@index([userId, active])
+}
+
+model Transaction {
+  id          Int       @id @default(autoincrement())
+  userPlanId  Int
+  amount      Float
+  status      String
+  paymentDate DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  userPlan UserPlan @relation(fields: [userPlanId], references: [id])
+
+  @@index([userPlanId])
 }

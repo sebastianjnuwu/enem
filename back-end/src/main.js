@@ -3,6 +3,7 @@ import compression from "compression";
 import body from "body-parser";
 import nocache from "nocache";
 import User from "#routes/user";
+import Plan from "#routes/plan";
 import express from "express";
 import "express-async-errors";
 import helmet from "helmet";
@@ -37,6 +38,7 @@ app.use("/health", (_, res) => {
 });
 
 app.use('/user', User);
+app.use('/plan', Plan);
 
 app.listen(process.env.PORT, () => {
   return logger.info(`Server running: http://localhost:${process.env.PORT}`);

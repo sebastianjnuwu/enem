@@ -365,7 +365,6 @@ section h3.card-title {
   font-size: 1.4rem;
 }
 
-/* Texto de termos abaixo do botão */
 .modal-footer {
   font-size: 0.8rem;
   color: var(--cor-azul-escuro);
@@ -374,17 +373,32 @@ section h3.card-title {
   font-weight: 600;
   user-select: none;
 }
-
 .modal-footer a {
   color: var(--cor-azul-escuro);
   font-weight: 700;
   text-decoration: none;
   transition: color 0.3s ease;
 }
-
 .modal-footer a:hover,
 .modal-footer a:focus {
   color: var(--cor-azul-suave);
   outline: none;
   text-decoration: underline;
+}
+
+.modal input.form-control {
+  border: 2px solid var(--cor-azul-suave);
+  border-radius: 6px;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+  transition: border-color 0.3s ease;
+  font-family: 'Fredoka One', cursive, sans-serif;
+  color: var(--cor-azul-escuro);
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+}
+
+.modal input.form-control:focus {
+  border-color: var(--cor-azul-escuro);
+  box-shadow: 0 0 8px rgba(30, 58, 138, 0.7);
+  outline: none;
 }

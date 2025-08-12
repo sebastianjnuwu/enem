@@ -1,6 +1,0 @@
-2025-08-12 00:42:13 [server] INFO: Server running: http://localhost:8080
-2025-08-12 00:42:13 [server] INFO: Prisma connected to the database
-2025-08-12 00:42:27 [server] INFO: ::ffff:127.0.0.1 - - [12/Aug/2025:00:42:27 +0000] "GET /user?UID=uVc0UvCqS2hdwauwfIRQQqG9QO53 HTTP/1.1" 200 321 "http://localhost:8158/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36"
-2025-08-12 00:42:33 [server] INFO: ::ffff:127.0.0.1 - - [12/Aug/2025:00:42:33 +0000] "GET /user?UID=uVc0UvCqS2hdwauwfIRQQqG9QO53 HTTP/1.1" 200 321 "http://localhost:8158/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36"
-2025-08-12 00:42:54 [server] INFO: ::ffff:127.0.0.1 - - [12/Aug/2025:00:42:54 +0000] "POST /user/login HTTP/1.1" 200 321 "http://localhost:8158/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36"
-2025-08-12 00:42:58 [server] INFO: ::ffff:127.0.0.1 - - [12/Aug/2025:00:42:58 +0000] "GET /user?UID=uVc0UvCqS2hdwauwfIRQQqG9QO53 HTTP/1.1" 200 321 "http://localhost:8158/" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36"

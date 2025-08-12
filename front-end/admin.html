@@ -10,7 +10,15 @@
   <link rel="stylesheet" href="src/css/styles.css" type="text/css" media="all" />
   <link rel="stylesheet" href="src/css/aluno.css" type="text/css" media="all" />
   <link rel="stylesheet" href="src/css/admin.css" type="text/css" media="all" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js" integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js" integrity="sha512-h9644v03pHqrIHThkvXhB2PJ8zf5E9IyVnrSfZg8Yj8k4RsO4zldcQc4Bi9iVLUCCsqNY0b4WXVV4UB+wbWENA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/eruda/3.4.3/eruda.min.js" integrity="sha512-cDmB70h28kl47NuDUcO3/hqJ29T+Gxue9DA6hoENF9RPGN/AZuyI94ATk5MN9VXTiuTHw2v3iVT9sXLzMMF1sQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+  eruda.init();
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="src/js/firebase.js" type="module" charset="utf-8"></script>
 </head>
 <body>
 
@@ -35,7 +43,351 @@
 </nav>
 
 <main class="my-auto">
-  
+
+<div class="modal fade" id="addPlanModal" tabindex="-1" aria-labelledby="addPlanModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="PLAN_FORM" class="modal-content" novalidate>
+      <div class="modal-header">
+        <h5 class="modal-title" id="addPlanModalLabel"><i class="fas fa-box-open me-2"></i>Adicionar Plano</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+
+        <!-- Nome do Plano -->
+        <div class="mb-3">
+          <label for="PLAN_NAME_TITLE" class="form-label">
+            <i class="fas fa-tag me-1"></i> Nome do Plano
+          </label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="PLAN_NAME_TITLE" 
+            name="name" 
+            placeholder="Ex: Plano Básico" 
+            required 
+            minlength="3" 
+            maxlength="50"
+          />
+          <div class="invalid-feedback">Informe um nome entre 3 e 50 caracteres.</div>
+        </div>
+
+        <!-- Descrição (Markdown) -->
+        <div class="mb-3">
+          <label for="PLAN_CONTENT_TITLE" class="form-label">
+            <i class="fas fa-file-alt me-1"></i> Descrição (Markdown)
+          </label>
+          <textarea 
+            class="form-control" 
+            id="PLAN_CONTENT_TITLE" 
+            name="content" 
+            rows="4" 
+            placeholder="Descreva o plano usando Markdown"
+            maxlength="1000"
+          ></textarea>
+          <small class="form-text text-muted mt-1">Preview da descrição:</small>
+          <div id="markdownPreview" class="border p-2" style="min-height: 80px; background:#f8f9fa; overflow-y:auto;"></div>
+        </div>
+
+        <!-- Vitalício -->
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="PLAN_ALWAYS_TITLE" name="always" />
+          <label class="form-check-label" for="PLAN_ALWAYS_TITLE">
+            <i class="fas fa-infinity me-1"></i> Vitalício (sem expiração)
+          </label>
+        </div>
+
+        <!-- Expiração (ex: 30d) -->
+        <div class="mb-3" id="expireAtWrapper">
+          <label for="PLAN_EXPIREAT_TITLE" class="form-label">
+            <i class="fas fa-hourglass-end me-1"></i> Expiração (ex: 30d)
+          </label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="PLAN_EXPIREAT_TITLE" 
+            name="expireAt" 
+            placeholder="Exemplo: 30d" 
+            pattern="^\d+d$" 
+            autocomplete="off"
+          />
+          <div id="expireAtError" class="text-danger mt-1" style="display:none;">
+            Formato inválido. Use número + "d", ex: 30d
+          </div>
+          <div class="form-text">Informe o número de dias seguido de "d", ex: 30d</div>
+        </div>
+
+        <!-- Preço -->
+        <div class="mb-3">
+          <label for="PLAN_PRICE_TITLE" class="form-label">
+            <i class="fas fa-dollar-sign me-1"></i> Preço (R$)
+          </label>
+          <input 
+            type="number" 
+            class="form-control" 
+            id="PLAN_PRICE_TITLE" 
+            name="price" 
+            placeholder="Ex: 49.90" 
+            required 
+            min="0.01" 
+            max="100000" 
+            step="0.01" 
+          />
+          <div class="invalid-feedback">Informe um preço válido (entre 0,01 e 100000).</div>
+        </div>
+
+        <!-- Tipo de Aula (checkbox) -->
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="PLAN_AULA_TEM_TITLE" name="hasAulas" />
+          <label class="form-check-label" for="PLAN_AULA_TEM_TITLE">
+            <i class="fas fa-chalkboard-teacher me-1"></i> Possui Aula
+          </label>
+        </div>
+
+        <!-- Tipo de Aula (select) -->
+        <div class="mb-3" id="aulaTipoWrapper" style="display:none;">
+          <label for="PLAN_AULA_TIPO_TITLE" class="form-label">
+            <i class="fas fa-video me-1"></i> Tipo de Aula
+          </label>
+          <select class="form-select" id="PLAN_AULA_TIPO_TITLE" name="aulaTipo" multiple aria-label="Selecione tipos de aula">
+            <option value="ao_vivo">Ao Vivo</option>
+            <option value="gravada">Gravada</option>
+          </select>
+          <div class="form-text">Selecione um ou mais tipos de aula.</div>
+        </div>
+
+         <!-- Temas (checkbox) -->
+<div class="form-check mb-3">
+  <input type="checkbox" class="form-check-input" id="PLAN_TEMA_TEM_TITLE" name="hasThemes" />
+  <label class="form-check-label" for="PLAN_TEMA_TEM_TITLE">
+    <i class="fas fa-lightbulb me-1"></i> Possui Temas
+  </label>
+</div>
+
+        <!-- Matérias (checkbox) -->
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="PLAN_MATERIA_TEM_TITLE" name="hasMaterias" />
+          <label class="form-check-label" for="PLAN_MATERIA_TEM_TITLE">
+            <i class="fas fa-book me-1"></i> Possui Matérias
+          </label>
+        </div>
+
+        <!-- Correções (checkbox) -->
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="PLAN_CORRECAO_TEM_TITLE" name="hasCorrecao" />
+          <label class="form-check-label" for="PLAN_CORRECAO_TEM_TITLE">
+            <i class="fas fa-edit me-1"></i> Possui Correções
+          </label>
+        </div>
+
+        <!-- Correções por semana (numérico) -->
+        <div class="mb-3" id="correcaoQtdWrapper" style="display:none;">
+          <label for="PLAN_CORRECAO_QTD_TITLE" class="form-label">
+            <i class="fas fa-list-ol me-1"></i> Correções por semana
+          </label>
+          <input 
+            type="number" 
+            class="form-control" 
+            id="PLAN_CORRECAO_QTD_TITLE" 
+            name="correcaoQtd" 
+            placeholder="Ex: 5" 
+            min="1" 
+            max="100" 
+          />
+          <div class="form-text">Informe a quantidade semanal (1 a 100).</div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-save me-1"></i> Salvar Plano
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade" id="editPlanModal" tabindex="-1" aria-labelledby="editPlanModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="PLAN_EDIT_FORM" class="modal-content" novalidate>
+      <div class="modal-header">
+        <h5 class="modal-title" id="editPlanModalLabel">
+          <i class="fas fa-edit me-2"></i>Editar Plano
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+
+        <!-- Nome do Plano -->
+        <div class="mb-3">
+          <label for="PLAN_EDIT_NAME" class="form-label">
+            <i class="fas fa-tag me-1"></i> Nome do Plano
+          </label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="PLAN_EDIT_NAME" 
+            name="name" 
+            required 
+            minlength="3" 
+            maxlength="50"
+          />
+          <div class="invalid-feedback">Informe um nome entre 3 e 50 caracteres.</div>
+        </div>
+
+        <!-- Descrição (Markdown) -->
+        <div class="mb-3">
+          <label for="PLAN_EDIT_CONTENT" class="form-label">
+            <i class="fas fa-file-alt me-1"></i> Descrição (Markdown)
+          </label>
+          <textarea 
+            class="form-control" 
+            id="PLAN_EDIT_CONTENT" 
+            name="content" 
+            rows="4" 
+            maxlength="1000"
+          ></textarea>
+          <small class="form-text text-muted mt-1">Preview da descrição:</small>
+          <div id="editMarkdownPreview" class="border p-2" style="min-height: 80px; background:#f8f9fa; overflow-y:auto;"></div>
+        </div>
+
+        <!-- Vitalício -->
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="PLAN_EDIT_ALWAYS" name="always" />
+          <label class="form-check-label" for="PLAN_EDIT_ALWAYS">
+            <i class="fas fa-infinity me-1"></i> Vitalício (sem expiração)
+          </label>
+        </div>
+
+        <!-- Expiração -->
+        <div class="mb-3" id="editExpireAtWrapper">
+          <label for="PLAN_EDIT_EXPIREAT" class="form-label">
+            <i class="fas fa-hourglass-end me-1"></i> Expiração (ex: 30d)
+          </label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="PLAN_EDIT_EXPIREAT" 
+            name="expireAt" 
+            pattern="^\d+d$" 
+            autocomplete="off"
+          />
+          <div id="editExpireAtError" class="text-danger mt-1" style="display:none;">
+            Formato inválido. Use número + "d", ex: 30d
+          </div>
+          <div class="form-text">Informe o número de dias seguido de "d", ex: 30d</div>
+        </div>
+
+        <!-- Preço -->
+        <div class="mb-3">
+          <label for="PLAN_EDIT_PRICE" class="form-label">
+            <i class="fas fa-dollar-sign me-1"></i> Preço (R$)
+          </label>
+          <input 
+            type="number" 
+            class="form-control" 
+            id="PLAN_EDIT_PRICE" 
+            name="price" 
+            required 
+            min="0.01" 
+            max="100000" 
+            step="0.01" 
+          />
+          <div class="invalid-feedback">Informe um preço válido (entre 0,01 e 100000).</div>
+        </div>
+
+        <!-- Possui Aula -->
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="PLAN_EDIT_AULA_TEM" name="hasAulas" />
+          <label class="form-check-label" for="PLAN_EDIT_AULA_TEM">
+            <i class="fas fa-chalkboard-teacher me-1"></i> Possui Aula
+          </label>
+        </div>
+
+        <!-- Tipo de Aula -->
+        <div class="mb-3" id="editAulaTipoWrapper" style="display:none;">
+          <label for="PLAN_EDIT_AULA_TIPO" class="form-label">
+            <i class="fas fa-video me-1"></i> Tipo de Aula
+          </label>
+          <select class="form-select" id="PLAN_EDIT_AULA_TIPO" name="aulaTipo" multiple>
+            <option value="ao_vivo">Ao Vivo</option>
+            <option value="gravada">Gravada</option>
+          </select>
+          <div class="form-text">Selecione um ou mais tipos de aula.</div>
+        </div>
+
+        <!-- Possui Temas -->
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="PLAN_EDIT_TEMA_TEM" name="hasThemes" />
+          <label class="form-check-label" for="PLAN_EDIT_TEMA_TEM">
+            <i class="fas fa-lightbulb me-1"></i> Possui Temas
+          </label>
+        </div>
+
+        <!-- Possui Matérias -->
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="PLAN_EDIT_MATERIA_TEM" name="hasMaterias" />
+          <label class="form-check-label" for="PLAN_EDIT_MATERIA_TEM">
+            <i class="fas fa-book me-1"></i> Possui Matérias
+          </label>
+        </div>
+
+        <!-- Possui Correções -->
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="PLAN_EDIT_CORRECAO_TEM" name="hasCorrecao" />
+          <label class="form-check-label" for="PLAN_EDIT_CORRECAO_TEM">
+            <i class="fas fa-edit me-1"></i> Possui Correções
+          </label>
+        </div>
+
+        <!-- Correções por semana -->
+        <div class="mb-3" id="editCorrecaoQtdWrapper" style="display:none;">
+          <label for="PLAN_EDIT_CORRECAO_QTD" class="form-label">
+            <i class="fas fa-list-ol me-1"></i> Correções por semana
+          </label>
+          <input 
+            type="number" 
+            class="form-control" 
+            id="PLAN_EDIT_CORRECAO_QTD" 
+            name="correcaoQtd" 
+            min="1" 
+            max="100" 
+          />
+          <div class="form-text">Informe a quantidade semanal (1 a 100).</div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-success">
+          <i class="fas fa-save me-1"></i> Atualizar Plano
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal de confirmação -->
+<div class="modal fade" id="CONFIRM_DELETE_MODAL" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+<h1 class="modal-title fs-5" id="confirmDeleteLabel">
+  <i class="fas fa-exclamation-triangle me-2"></i>Confirmação
+</h1>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja deletar este plano?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="CONFIRM_DELETE_BUTTON">Deletar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
   <section class="text-center mb-5" aria-label="Gerenciar Pacotes">
   <h2 class="section-title text-center mb-4" style="color: var(--cor-azul-escuro); font-weight: 700; font-size: 2rem;">
     <i class="fas fa-box-open me-2" style="color: var(--cor-azul-escuro);"></i>
@@ -43,7 +395,8 @@
   </h2>
 
 <div class="d-flex justify-content-center mb-4">
-  <button class="button btn btn-primary px-4 py-2" aria-label="Enviar nova redação">
+  <button data-bs-toggle="modal" 
+    data-bs-target="#addPlanModal" class="button btn btn-primary px-4 py-2" aria-label="Enviar nova redação">
     <i class="fas fa-plus me-1"></i> Adicionar Plano
   </button>
 </div>
@@ -51,25 +404,11 @@
     
   <div id="admin-pacotes">
 
-   <article class="card">
-  <h3 class="text-center card-title mb-4">
-    <i class="fas fa-book"></i> Modelos Prontos
-  </h3>
-  <p>100 redações modelo atualizadas, incluindo modelo exclusivo 900+.</p>
-  <p class="fw-bold text-primary mb-3">R$48,00 (único)</p>
-
-      <div class="admin-pacotes-actions">
-        <button class="btn-view"><i class="fas fa-eye"></i></button>
-        <button class="btn-edit"><i class="fas fa-edit"></i></button>
-        <button class="btn-delete"><i class="fas fa-trash"></i></button>
-      </div>
-
-</article>
-
   </div>
   
 </section>
-  
+
+<!---
   <section id="aulas-admin" class="aulas-admin" aria-label="Gerenciar Aulas">
 
   <h3 class="text-center card-title mb-4"><i class="fas
@@ -236,7 +575,6 @@
         <button class="btn-delete" aria-label="Apagar Guia de Argumentação"><i class="fas fa-trash"></i></button>
       </div>
     </li>
-    <!-- mais itens -->
   </ul>
 </section>
   
@@ -270,7 +608,6 @@
     <i class="fas fa-users me-2"></i> Gerenciar Usuários
   </h3>
 
-  <!-- Campo de pesquisa -->
   <input
     type="search"
     id="searchUsers"
@@ -481,7 +818,7 @@
   </li>
 </ul>
 </section>
-
+--->
 </main>
 
   <footer class="footer">
@@ -503,7 +840,10 @@ data-bs-target='#policy_modal'>Política de Privacidade</a>
     </small>
    </div>
   </footer>
- 
- <script src="src/js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+ <script src="src/js/admin/Plan.js"></script>
+ <script src="src/js/admin/CreatePlan.js"></script>
+ <script src="src/js/admin/UpdatePlan.js"></script>
+ <script src="src/js/admin/DeletePlan.js"></script>
 </body>
 </html>
