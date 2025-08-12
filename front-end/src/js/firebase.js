@@ -68,13 +68,19 @@ async function signInWithGoogle() {
   });
  
   } catch (err) {
-    return err.message;
+    return false;
   }
 }
 
 $("#login_google").on("click", async () => {
     
     const login = await signInWithGoogle();
+    
+    if (!login) {
+      alert("O SERVIDOR MORREU! Sorry...");
+      return;
+    };
+    
     const user = await login.json();
 
     Cookies.set("USER", encode(user), { expires: 55 / (60 * 24) });

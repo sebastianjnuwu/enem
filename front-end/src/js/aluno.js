@@ -19,20 +19,24 @@ $(document).ready(async () => {
     location.href = '/';
   });
 
+
+
+  // show user information on card 
   await fetch(window.API + '/user?UID=' + decode(Cookies.get('USER')).uid, {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 
+      'Content-Type': 'application/json'
+    }
   }).then(async (api) => {
 
-      const USER = await api.json();
+    const USER = await api.json();
 
-      $('#user_name').text(USER.name);
-      $('#user_picture').attr('src', USER.picture);
+    $('#user_name').text(USER.name);
+    $('#user_picture').attr('src', USER.picture);
 
-      const PROFILE = $('.profile-info li');
-      PROFILE.eq(0).html(`<i class="fas fa-user"></i> ${USER.name}`);
-      PROFILE.eq(1).html(`<i class="fas fa-envelope"></i> ${USER.email}`);
-      PROFILE.eq(2).html(`<i class="fas fa-phone"></i> ${USER.phone || 'Não informado'}`);
+    $('.profile-info li').eq(0).html(`<i class="fas fa-user"></i> ${USER.name}`);
+    $('.profile-info li').eq(1).html(`<i class="fas fa-envelope"></i> ${USER.email}`);
+    $('.profile-info li').eq(2).html(`<i class="fas fa-phone"></i> ${USER.phone || 'Não informado'}`);
 
  });
 
