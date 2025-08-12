@@ -1,0 +1,34 @@
+# Environment files
+.env
+.env.test
+.env.local
+.env.development
+.env.production
+
+# Node.js modules
+node_modules
+
+# Prisma files (database and migrations)
+prisma/migrations
+*.db
+db
+
+# Test files
+__snapshots__
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+package-lock.json
+npm-debug.log
+yarn-error.log
+logs
+
+# Build output
+dist
+build
+
+# Coverage output (if using tools like Jest, Mocha, etc.)
+coverage

@@ -10,45 +10,27 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="src/css/styles.css" type="text/css" media="all" />
   <link rel="stylesheet" href="src/css/index.css" type="text/css" media="all" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js" integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="src/js/main.js" type="text/javascript" charset="utf-8"></script>
+  <script src="src/js/firebase.js" type="module" charset="utf-8"></script>
+  <script src="src/js/main.js" type="module" charset="utf-8"></script>
 </head>
 
 <body>
-  
-  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content border-0 rounded-4 shadow-sm">
-      <div class="modal-body text-center py-4 px-4">
-        <p class="mb-4" style="font-size: 1.1rem; color: #333;">
-          Faça login com sua conta Google para continuar.
-        </p>
-        <button id="googleLoginBtn" type="button" class="btn btn-google btn-lg fw-semibold mb-3">
-          <i class="fab fa-google me-2"></i> Entrar com Google
-        </button>
-        <p style="font-size: 0.8rem; color: #666; line-height: 1.4;">
-          Ao continuar, você concorda com nossos
-          <a href="#" target="_blank" class="link-primary
-          text-decoration-none">Termos de Uso e Política de Privacidade</a>.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
 
   <header class="header">
-  <i class="fas fa-pencil-alt icon"></i>
-  <h1>REDAÇÃO COM A MAY</h1>
-</header>
+    <i class="fas fa-pencil-alt icon"></i>
+    <h1>REDAÇÃO COM A MAY</h1>
+  </header>
 
   <main class="container-fluid py-5">
 
    <p class="lead text-center">
     "Sou discente que já passou no ENEM e vou te ajudar a melhorar sua redação com o meu modelo pronto" — Maiza Silva
   </p>
- 
-   <div class="text-center mb-5">
-  <a href="#adquira" class="button">
+
+ <div class="text-center mb-5">
+  <a id="button-1" href="#adquira" class="button">
     <i class="fas fa-arrow-right"></i>
     Começar Agora
   </a>
@@ -118,6 +100,28 @@
   </button>
 </section>
 
+
+<div class="modal fade" id="ModalPackage" tabindex="-1"
+aria-labelledby="ModalPackage" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="pacoteModalLabel">Confirmação</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        Obrigado por seu interesse! Vamos prosseguir com a compra.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn">Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="section-plan">
+
   <section class="card p-4 mb-5 mx-auto">
   <h3 class="card-title">
     <i class="fas fa-pencil-alt"></i> Pacote de Correção de Redação
@@ -135,12 +139,12 @@
     <li>Monitoria individual para tirar dúvidas e receber acompanhamento de perto</li>
   </ul>
   <p class="fw-bold text-center text-primary mb-3">Investimento: R$68,00 por mês</p>
-  <button class="btn btn-primary w-100">
+  <button class="btn w-100">
     <i class="fas fa-check-circle"></i> Assinar Pacote Correção
   </button>
 </section>
 
-  <section class="card p-4 mb-5 mx-auto">
+  <section id="adquira" class="card p-4 mb-5 mx-auto">
   <h3 class="card-title mb-3">
     <i class="fas fa-book"></i> Pacote de Modelos Prontos
   </h3>
@@ -154,12 +158,12 @@
     <li>Modelo exclusivo da Maiza, com 900+ no ENEM por 4 vezes</li>
   </ul>
   <p class="fw-bold text-center text-primary mb-3">Investimento único: R$48,00</p>
-  <button class="btn btn-primary w-100">
+  <button class="btn w-100">
     <i class="fas fa-check-circle"></i> Comprar Modelos
   </button>
 </section>
 
-  <section id="adquira" class="card p-4 mb-5 mx-auto">
+  <section class="card p-4 mb-5 mx-auto">
   <h3 class="card-title mb-3">
     <i class="fas fa-graduation-cap"></i> Pacote Completo com Aulas
   </h3>
@@ -175,20 +179,25 @@
   </ul>
   <p class="fw-bold text-center text-primary mb-1">Investimento:</p>
   <p class="text-center fw-semibold mb-3">R$50,00 na inscrição + R$90,00/mês</p>
-  <button class="btn btn-primary w-100">
+  <button class="btn w-100">
     <i class="fas fa-check-circle"></i> Quero o Pacote Completo
   </button>
 </section>
 
-  <section class="text-center mb-5" aria-label="Acesso de Alunos">
+</div>
+
+  <section id="acesso" class="text-center mb-5" aria-label="Acesso de Alunos">
   <h2 class="section-title text-center mb-4" style="color: var(--cor-azul-escuro); font-weight: 700; font-size: 2rem;">
     Já é aluno?
   </h2>
   <p style="max-width: 600px; margin: 0 auto; font-size: 1.1rem; font-weight: bold; color: #444;">
     Acesse sua conta para continuar seus estudos e acompanhar as aulas.
   </p>
-  <a data-bs-toggle="modal" data-bs-target="#loginModal" class="button" style="margin: 10px;">
+  <a id="button-2" class="button" href="aluno.html" style="margin: 10px;" hidden>
     <i class="fas fa-sign-in-alt"></i> Entrar na Plataforma
+  </a>
+  <a id="login_google" class="button" style="margin: 10px;">
+    <i class="fab fa-google"></i> Entrar Com Google
   </a>
 </section>
 
@@ -199,22 +208,23 @@
     <p class="mb-2">&copy; 2025 Maiza Silva - Todos os direitos reservados.</p>
   </div>
     <div class="d-flex justify-content-center">
-     <small class="mx-3">
-       <i class="fas fa-file-contract"></i>
-<a target='_blank' data-bs-toggle='modal' data-bs-target='#terms_modal'>Termos
-de Uso</a> e <a target='_blank' data-bs-toggle='modal'
-data-bs-target='#policy_modal'>Política de Privacidade</a>
+      <small class="mx-3">
+       <i class="fas fa-file-contract"></i> <a target='_blank' data-bs-toggle='modal' data-bs-target='#terms_modal'>Termos de Uso</a> e <a target='_blank' data-bs-toggle='modal' data-bs-target='#policy_modal'>Política de Privacidade</a>
      </small>
     </div>
     <div class="d-flex justify-content-center">
-    <small class="mx-1 link">
-     <i class="fas fa-code"></i> com <i class="fas fa-heart"></i> por <a
-     href="https://www.github.com/sebastianjnuwu" class="link">Sebastian Jn</a>
+     <small class="mx-1 link">
+      <i class="fas fa-code"></i> com <i class="fas fa-heart"></i> por <a href="https://www.github.com/sebastianjnuwu" class="link">Sebastian Jn</a>
     </small>
-   </div>
+  </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
  </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/eruda/3.4.3/eruda.min.js" integrity="sha512-cDmB70h28kl47NuDUcO3/hqJ29T+Gxue9DA6hoENF9RPGN/AZuyI94ATk5MN9VXTiuTHw2v3iVT9sXLzMMF1sQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  eruda.init();
+</script>
 </html>

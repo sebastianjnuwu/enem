@@ -1,0 +1,55 @@
+{
+  "name": "@back-end/api",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "main": "src/main.js",
+  "license": "Apache-2.0",
+  "author": "Sebastian Jn <sebastianjnuwu@gmail.com>",
+  "scripts": {
+    "test": "jest",
+    "start": "node --env-file=.env src/main.js",
+    "dev": "node --watch --env-file=.env src/main.js",
+    "lint": "npx @biomejs/biome lint --write",
+    "format": "npx @biomejs/biome format --write"
+  },
+  "imports": {
+    "#db/*": "./src/database/*.js",
+    "#middleware/*": "./src/middleware/*.js",
+    "#routes/*": "./src/routes/*.js",
+    "#controllers/*": "./src/controllers/*.js",
+    "#services/*": "./src/services/*.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
+    "@biomejs/biome": "^1.9.4",
+    "@jest/globals": "^29.7.0",
+    "@prisma/client": "^6.2.1",
+    "@types/jest": "^30.0.0",
+    "@types/mocha": "^10.0.10",
+    "babel-jest": "^29.7.0",
+    "dotenv": "^17.2.1",
+    "jest": "^29.7.0",
+    "prisma": "^6.2.1",
+    "sqlite3": "^5.1.7"
+  },
+  "engines": {
+    "npm": ">=8",
+    "node": ">=18"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "chalk": "^5.5.0",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-async-errors": "^3.1.1",
+    "firebase-admin": "^13.4.0",
+    "helmet": "^8.1.0",
+    "joi": "^18.0.0",
+    "morgan": "^1.10.1",
+    "nocache": "^4.0.0",
+    "winston": "^3.17.0"
+  }
+}
