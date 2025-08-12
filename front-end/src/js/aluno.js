@@ -1,8 +1,7 @@
-/*
+
 if (!Cookies.get('USER')) {
   location.href = '/';
 };
-*/
 
 const decode = (encoded) => {
   try {
