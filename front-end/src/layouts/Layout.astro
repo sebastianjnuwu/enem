@@ -1,0 +1,102 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import ErudaClient from "@components/jsx/ErudaClient.jsx";
+import Footer from "@components/astro/footer.astro";
+---
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  
+  <title>{title}</title>
+  
+  <meta name="theme-color" content="#1e3a8a" />
+  <meta name="generator" content={Astro.generator} />
+  
+  <link rel="icon" href="#" />
+  <link rel="apple-touch-icon" href="#" />
+  <link rel="shortcut icon" href="#" />
+
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Sebastian Jn <sebastianjnuwu@gmail.com>" />
+  <link rel="canonical" href="#" />
+  
+  <meta property="og:site_name" content="#" />
+  <meta property="og:title" content="#" />
+  <meta property="og:description" content="#" />
+  <meta property="og:image" content="#" />
+  <meta property="og:url" content="#" />
+  <meta property="og:locale" content="#" />
+  <meta property="og:type" content="#" />
+  
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  
+  <style is:global>
+:root {
+  --layout: #e3f2fd;
+  --cor-azul-suave: #90caf9;
+  --cor-azul-escuro: #1e3a8a;
+  --cor-branco: #ffffff;
+  --cor-cinza-texto: #444;
+  --cor-cinza-claro: #f5f7fa;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--layout);
+}
+
+main {
+  min-height: 100vh;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: var(--cor-azul-escuro);
+  color: var(--cor-branco);
+  padding: 1rem 2rem;
+  margin: 0.75rem;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 5rem;
+  box-shadow: 0 0.2rem 0.25rem rgba(21, 67, 96, 0.5);
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.button:hover,
+.button:focus {
+  background-color: var(--cor-azul-suave);
+  transform: translateY(-0.3rem);
+  outline: none;
+}
+  </style>
+</head>
+ <body>
+  
+  <ErudaClient client:only="react" />
+
+  <main>
+    <slot />
+  </main>
+  
+  <Footer />
+  
+ </body>
+</html>

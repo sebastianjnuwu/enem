@@ -7,7 +7,7 @@ const User = async (req, res) => {
   try {
 
     const { error, value } = Joi.object({
-      UID: Joi.string().required(),
+      uid: Joi.string().required(),
     }).validate(req.query);
 
     if (error) {
@@ -18,7 +18,15 @@ const User = async (req, res) => {
     };
 
     const user = await prisma.user.findUnique({
-      where: { uid: value.UID }
+      where: { uid: value.uid },
+      include: {
+        userPlans: {
+          include: {
+            plan: true,
+            transactions: true,
+          }
+        }
+      }
     });
 
     if (!user) return res.status(404).json({

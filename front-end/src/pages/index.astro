@@ -1,0 +1,200 @@
+---
+import Layout from "@layout/Layout.astro";
+import Header from "@components/astro/header.astro";
+import "@styles/css/section.css";
+---
+
+<Layout title="Curso de Redação com a MAY: Escreva Melhor, Conquiste Mais">
+
+ <Header icon="fa-pencil-alt" title="REDAÇÃO COM A MAY" />
+ 
+  <section aria-label="Siga a criadora do curso">
+    <h1 class="title">
+      Você já me segue?
+    </h1>
+    <p>
+      Siga no Instagram e descubra outros conteúdos.
+    </p>
+    <a
+      href="https://www.instagram.com/psic.maizasil"
+      class="button"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Siga no Instagram"
+      >
+      <i class="fab fa-instagram" aria-hidden="true"></i> Instagram
+    </a>
+  </section>
+
+  <section aria-label="Por que aprender comigo?">
+    <h1 class="title">
+      <i class="fas fa-user-graduate"></i>
+      Por que aprender comigo?
+    </h1>
+    <p>
+      Aqui você vai aprender o que realmente importa pra escrever redações que
+      chamam atenção e ganham nota máxima — nada de enrolação, só o que funciona
+      de verdade.
+    </p>
+  </section>
+
+  <section aria-label="Como eu ensino?">
+    <h1 class="title">
+      <i class="fas fa-chalkboard-teacher"></i>
+      Como eu ensino?
+    </h1>
+    <p>
+      Com métodos práticos e diretos, você vai dominar técnicas testadas e comprovadas para organizar ideias, construir argumentos e arrasar na escrita. Sem complicação, só resultado.
+    </p>
+  </section>
+
+  <section aria-label="O que você vai conquistar?">
+    <h1 class="title">
+      <i class="fas fa-trophy"></i>
+      O que você vai conquistar?
+    </h1>
+    <p>
+      Confiança para escrever textos claros e impactantes, habilidade para estruturar argumentos sólidos e a garantia de que suas redações terão um diferencial na hora da correção.
+    </p>
+  </section>
+
+  <section aria-label="Quem pode aprender?">
+    <h1 class="title">
+      <i class="fas fa-users"></i>
+      Quem pode aprender?
+    </h1>
+    <p>
+      Estudantes de todos os níveis que querem melhorar suas redações e garantir notas altas, mesmo que estejam começando do zero ou já tenham alguma experiência.
+    </p>
+  </section>
+
+  <section aria-label="Como começar agora">
+    <h1 class="title">
+      <i class="fas fa-rocket"></i>
+      Como começar agora
+    </h1>
+    <p>
+      Acesse os materiais, pratique diariamente e conte com meu suporte para tirar dúvidas. O caminho para a redação nota máxima começa aqui, com passos simples e eficazes.
+    </p>
+  </section>
+
+  <section id="acesso" aria-label="Acesso de Alunos">
+    <h1 class="title">
+      Já é aluno?
+    </h1>
+    <p>
+      Acesse sua conta para continuar seus estudos e acompanhar as aulas.
+    </p>
+    <a id="GO_TO_PLATFORM" class="button" href="aluno.html" hidden>
+      <i class="fas fa-sign-in-alt"></i> Entrar na Plataforma
+    </a>
+    <a id="LOGIN_GOOGLE" class="button">
+      <i class="fab fa-google"></i> Entrar com o Google
+    </a>
+  </section>
+
+<script type="module">
+/**
+ * @fileoverview Gerencia o login via Google e manipulação de cookies no front-end.
+ * Mostra/esconde botões conforme estado de autenticação e registra eventos no Firebase Analytics.
+ */
+
+import { LogEvent, signInWithGoogle } from "@script/services/firebase.js";
+import { UserLogin } from "@script/ts/axios.ts";
+import Cookies from "js-cookie";
+import $ from "jquery";
+
+/**
+ * @typedef {Object} ApiResponse
+ * @property {boolean} status - Indica se o login na API foi bem-sucedido.
+ * @property {Object} user - Dados do usuário retornados pela API.
+ */
+
+/**
+ * Ajusta a visibilidade dos botões de login e acesso à plataforma
+ * conforme a existência do cookie "USER_DATE".
+ * @function
+ */
+if (Cookies.get("USER_DATE")) {
+  $("#LOGIN_GOOGLE").attr("hidden", true); 
+  $("#GO_TO_PLATFORM").attr("hidden", false); 
+};
+
+/**
+ * Manipulador de clique para login via Google.
+ * - Desabilita o botão durante o processo.
+ * - Mostra spinner durante a autenticação.
+ * - Obtém ID e token de acesso do Google.
+ * - Salva token e dados do usuário em cookies.
+ * - Chama a API de login para validar usuário.
+ * - Registra evento de login no Firebase Analytics.
+ * - Restaura botão e cookies caso haja falha na API.
+ * - Atualiza visibilidade dos botões após login bem-sucedido.
+ * 
+ * @async
+ * @function
+ * @fires LogEvent
+ * @returns {Promise<void>}
+ */
+$("#LOGIN_GOOGLE").on("click", async function () {
+  /** @type {JQuery<HTMLElement>} */
+  const $btn = $(this);
+
+  if ($btn.prop("disabled")) return; 
+  
+  const origin = $btn.html();
+  $btn.prop("disabled", true);
+  $btn.html('<i class="fas fa-spinner fa-spin"></i>');
+
+  /**
+   * Realiza login via Google e retorna ID e token de acesso.
+   * @type {{id: string, accessToken: string}}
+   */
+  const { id, accessToken } = await signInWithGoogle();
+
+  /**
+   * Salva token de acesso temporário em cookie.
+   * @param {string} accessToken - Token do usuário.
+   * @param {Object} options - Opções do cookie.
+   * @param {number} options.expires - Expiração em dias (aprox. 55 minutos).
+   */
+  Cookies.set("USER_TOKEN", accessToken, { expires: 55 / (60 * 24) });
+
+  /** @type {ApiResponse} */
+  const api = await UserLogin(id);
+
+  await LogEvent("login", {
+    method: "google",
+    device_model: navigator.userAgent,
+    device_category: /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : (/Tablet|iPad/i.test(navigator.userAgent) ? "tablet" : "desktop"),
+    screen_resolution: `${window.screen.width}x${window.screen.height}`,
+    language: navigator.language,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    page_location: window.location.href,
+    page_referrer: document.referrer,
+    event_time: new Date().toISOString()
+  });
+
+  if (!api?.status) {
+    Cookies.remove("USER_DATE");
+    Cookies.remove("USER_TOKEN");
+    $btn.prop("disabled", false);
+    $btn.html(origin);
+    return;
+  }
+
+  /**
+   * Salva dados do usuário em cookie codificado em Base64.
+   * @param {string} key - Chave do cookie.
+   * @param {string} value - Dados do usuário em Base64.
+   * @param {Object} options - Opções do cookie.
+   * @param {number} options.expires - Expiração em dias.
+   */
+  Cookies.set("USER_DATE", btoa(JSON.stringify(api.user)), { expires: 55 / (60 * 24) });
+
+  $btn.attr("hidden", true);
+  $("#GO_TO_PLATFORM").attr("hidden", false); 
+  
+});
+</script>
+</Layout>

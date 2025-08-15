@@ -1,28 +1,4 @@
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: 'Fredoka One', cursive, sans-serif;
-  background-color: var(--layout);
-  color: var(--cor-cinza-texto);
-  min-height: 100vh;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-main {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 2rem 1rem 4rem;
-  flex: 1;
-}
-
 .welcome {
   text-align: center;
   margin-bottom: 2.5rem;
@@ -851,22 +827,9 @@ main {
 
 /* Mobile tweaks */
 @media (max-width: 576px) {
-  nav#mainNav {
-    top: 70px;
-    padding: 0.5rem 0.5rem;
-    gap: 0.5rem;
-  }
-  
-  nav#mainNav a.button {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-  }
-  
-  main {
-    padding: 1.5rem 1rem 3rem;
-  }
   
   .cards {
+    
     grid-template-columns: 1fr;
   }
   
