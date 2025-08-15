@@ -30,7 +30,7 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: cd front-end; npm install
 
       - name: Build Astro site
         run: npm run build
