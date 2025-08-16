@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
@@ -13,7 +13,7 @@ enum Role {
 }
 
 model Plan {
-  id                  Int      @id @default(autoincrement())
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
   name                String
   content             String?
   always              Boolean  @default(false)
@@ -32,7 +32,7 @@ model Plan {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   uid       String   @unique
   email     String   @unique
   name      String
@@ -46,9 +46,9 @@ model User {
 }
 
 model UserPlan {
-  id       Int      @id @default(autoincrement())
-  userId   Int
-  planId   Int
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String   @db.ObjectId
+  planId   String   @db.ObjectId
   startAt  DateTime @default(now())
   expireAt String?
   active   Boolean  @default(true)
@@ -62,8 +62,8 @@ model UserPlan {
 }
 
 model Transaction {
-  id          Int       @id @default(autoincrement())
-  userPlanId  Int
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  userPlanId  String    @db.ObjectId
   amount      Float
   status      String
   paymentDate DateTime?

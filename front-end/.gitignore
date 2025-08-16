@@ -1,8 +1,15 @@
 # build output
-dist/
+build/
 
 # generated types
 .astro/
+
+# Environment files
+.env
+.env.test
+.env.local
+.env.development
+.env.production
 
 # dependencies
 node_modules/
