@@ -1,0 +1,44 @@
+{
+  "name": "@back-end/api",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "main": "src/main.js",
+  "license": "Apache-2.0",
+  "author": "Sebastian Jn <sebastianjnuwu@gmail.com>",
+  "scripts": {
+    "start": "node --env-file=.env src/main.js",
+    "dev": "node --watch --env-file=.env src/main.js",
+    "lint": "npx @biomejs/biome lint --write",
+    "format": "npx @biomejs/biome format --write"
+  },
+  "imports": {
+    "#db/*": "./src/database/*.js",
+    "#middleware/*": "./src/middleware/*.js",
+    "#routes/*": "./src/routes/*.js",
+    "#controllers/*": "./src/controllers/*.js",
+    "#services/*": "./src/services/*.js"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.0.0",
+    "@prisma/client": "^6.2.1",
+    "prisma": "^6.2.1"
+  },
+  "engines": {
+    "npm": ">=8",
+    "node": ">=18"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "chalk": "^5.5.0",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "express": "^5.0.0",
+    "firebase-admin": "^13.4.0",
+    "helmet": "^8.1.0",
+    "joi": "^18.0.0",
+    "morgan": "^1.10.1",
+    "nocache": "^4.0.0",
+    "winston": "^3.17.0"
+  }
+}

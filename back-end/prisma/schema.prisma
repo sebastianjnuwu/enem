@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  ADMIN
+}
+
+model Plan {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  name                String
+  content             String?
+  always              Boolean  @default(false)
+  price               Float
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  EXPIRED             String?
+  HAS_THEMES          Boolean  @default(false)
+  HAS_CLASSES         Boolean  @default(false)
+  TYPE_CLASS          String?
+  HAS_MATERIALS       Boolean  @default(false)
+  HAS_CORRECTION      Boolean  @default(false)
+  QUANTITY_CORRECTION Int      @default(0)
+
+  userPlans UserPlan[]
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  uid       String   @unique
+  email     String   @unique
+  name      String
+  picture   String?
+  phone     String?
+  role      Role     @default(STUDENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userPlans UserPlan[]
+}
+
+model UserPlan {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String   @db.ObjectId
+  planId   String   @db.ObjectId
+  startAt  DateTime @default(now())
+  expireAt String?
+  active   Boolean  @default(true)
+
+  user User @relation(fields: [userId], references: [id])
+  plan Plan @relation(fields: [planId], references: [id])
+
+  transactions Transaction[]
+
+  @@index([userId, active])
+}
+
+model Transaction {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  userPlanId  String    @db.ObjectId
+  amount      Float
+  status      String
+  paymentDate DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  userPlan UserPlan @relation(fields: [userPlanId], references: [id])
+
+  @@index([userPlanId])
+}

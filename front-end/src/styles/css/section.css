@@ -1,0 +1,30 @@
+section {
+  padding: 0.5rem;
+  margin: 1rem;
+  text-align: center;
+}
+
+section h1.title {
+  text-align: center;
+  font-size: 2rem;
+  font-family: 'Fredoka One', cursive;
+  position: relative;
+  color: var(--cor-azul-escuro);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  outline: none;
+  user-select: none;
+}
+
+section h1 i {
+  color: var(--cor-azul-escuro);
+}
+
+section p {
+  max-width: 40rem;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  font-weight: bold;
+  user-select: none;
+  color: var(--cor-cinza-texto);
+}
