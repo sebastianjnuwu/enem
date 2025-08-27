@@ -5,7 +5,6 @@ import nocache from "nocache";
 import User from "#routes/user";
 import Plan from "#routes/plan";
 import express from "express";
-import "express-async-errors";
 import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
@@ -40,8 +39,8 @@ app.use("/health", (_, res) => {
 app.use('/user', User);
 app.use('/plan', Plan);
 
-app.listen(process.env.PORT, () => {
-  return logger.info(`Server running: http://localhost:${process.env.PORT}`);
+app.listen(process.env.PORT, process.env.HOST, () => {
+  return logger.info(`Server running: http://${process.env.HOST}:${process.env.PORT}`);
 });
 
 export default app;
