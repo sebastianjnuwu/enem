@@ -38,10 +38,13 @@ export async function signInWithGoogle() {
   
   const user = await result.user;
   const id = await result.user.getIdToken();
-  
+
+  console.log('[Firebase] User signed in:', user);
+
   return { id, accessToken, user };
     
   } catch (err) {
+    console.error('[Firebase] Error during sign-in:', err);
     return false;
   }
 }
