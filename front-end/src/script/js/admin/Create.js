@@ -1,8 +1,12 @@
 import $ from 'jquery';
+import * as bootstrap from 'bootstrap';
 import { PlanCreate } from "@script/ts/axios";
 import { LoadPlans } from "@script/js/admin/Get.js";
 import Cookies from "js-cookie";
 import { marked } from "marked";
+
+const addPlanModal = bootstrap.Modal.getInstance(addPlanModalEl) || new bootstrap.Modal(addPlanModalEl);
+
 
 const decode = (encoded) => {
   try {
@@ -13,6 +17,12 @@ const decode = (encoded) => {
 };
 
 $(function () {
+
+  //Mostrar o modal de adicionar plano
+$('#addPlanButton').on('click', function () {
+   addPlanModal.show();
+});
+
   // Preview Markdown em tempo real
   $('#PLAN_CONTENT_TITLE').on('input', function () {
     const md = $(this).val() || '';
@@ -130,9 +140,10 @@ $(function () {
       $('#aulaTipoWrapper').hide();
       $('#correcaoQtdWrapper').hide();
       $('#markdownPreview').html('');
-      $('#addPlanModal').modal('hide');
+      addPlanModal.hide();
     } else {
       alert('Erro ao criar o plano. Tente novamente.');
     }
   });
+
 });
